@@ -1,0 +1,36 @@
+@model LibraryManagement.ViewModels.LibraryBranchViewModel
+
+<h2>@Model.BranchName - Details</h2>
+
+<div>
+    <h4>Library Branch</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Address</dt>
+        <dd class="col-sm-10">@Model.Address</dd>
+
+        <dt class="col-sm-2">Phone</dt>
+        <dd class="col-sm-10">@Model.Phone</dd>
+
+        <dt class="col-sm-2">Books Available</dt>
+        <dd class="col-sm-10">
+            @if (Model.BookTitles != null && Model.BookTitles.Any())
+            {
+                <ul>
+                    @foreach (var title in Model.BookTitles)
+                    {
+                        <li>@title</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span>No Books Available</span>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

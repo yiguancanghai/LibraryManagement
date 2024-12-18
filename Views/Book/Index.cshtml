@@ -1,0 +1,86 @@
+@model IEnumerable<LibraryManagement.Models.Book>
+
+<h2>Books</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>ISBN</th>
+            <th>Author</th>
+            <th>LibraryBranch</th>
+            <th>Published Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.ISBN</td>
+                <td>
+                    @if (book.Author != null)
+                    {
+                        @book.Author.FirstName @book.Author.LastName
+                    }
+                    else
+                    {
+                        <span>No Author Assigned</span>
+                    }
+                </td>
+                <td>
+                    @if (book.LibraryBranch != null)
+                    {
+                        @book.LibraryBranch.BranchName 
+                    }
+                    else
+                    {
+                        <span>No Library Branch Assigned</span>
+                    }
+                </td>
+                <td>@book.PublishedDate.ToString("yyyy-MM-dd")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@book.Id">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@book.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@book.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> 
+
+<!-- Display success or error messages -->
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<!-- Add "Create New Book" and "Borrow Book" buttons -->
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Book</a>
+    <button id="borrowBookButton" class="btn btn-success">Borrow Book</button>
+</p>
+
+<!-- Borrow Book form, initially hidden -->
+<div id="borrowBookForm" style="display: none;">
+    <form asp-action="BorrowBook" method="post">
+        <div class="form-group">
+            <label for="isbn">Enter Book ISBN:</label>
+            <input type="text" id="isbn" name="isbn" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Submit</button>
+    </form>
+</div>
+
+<script>
+    // Show the Borrow Book form when the button is clicked
+    document.getElementById('borrowBookButton').addEventListener('click', function () {
+        document.getElementById('borrowBookForm').style.display = 'block';
+    });
+</script>

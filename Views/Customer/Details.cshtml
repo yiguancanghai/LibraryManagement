@@ -1,0 +1,22 @@
+@model LibraryManagement.Models.Customer
+
+<h2>Customer Details</h2>
+
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Model.Email</dd>
+
+        <dt class="col-sm-2">Phone</dt>
+        <dd class="col-sm-10">@Model.Phone</dd>
+
+        <dt class="col-sm-2">Membership Date</dt>
+        <dd class="col-sm-10">@Model.MembershipDate.ToString("yyyy-MM-dd")</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

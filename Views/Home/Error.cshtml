@@ -1,0 +1,13 @@
+@model LibraryManagement.Models.ErrorViewModel
+
+<h1 class="text-danger">An Error Occurred</h1>
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="text-danger">@Model.Message</p>
+}
+<p>
+    Request ID: <strong>@Model.RequestId</strong>
+</p>
+<p>
+    Please try again later or contact support if the issue persists.
+</p>
